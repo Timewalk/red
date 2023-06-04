@@ -1,6 +1,6 @@
 require('source')();
 require('room')();
-require('game')();
 
-// Call Game's 'update' method
-Game.update();
+let game_manager = require('game_manager');
+
+game_manager.run();
