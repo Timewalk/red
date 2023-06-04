@@ -1,4 +1,19 @@
 module.exports = function() {
+    
+    Room.prototype.update = function() {
+        // If there is no memory for this room or no sources in memory, find the sources
+        if (!Memory.rooms[this.name] || !Memory.rooms[this.name].sources) {
+          // Find all sources in the room and store their ids in memory
+          let sources = this.find(FIND_SOURCES);
+          Memory.rooms[this.name].sources = sources.map(source => source.id);
+        }
+
+        // For each source in memory, try to build a container
+        for (let sourceId of Memory.rooms[this.name].sources) {
+          this.build_containers(sourceId);
+        }
+      }
+
   Room.prototype.build_containers = function(source) {
     // Check if the source already has a container
     if (!source.container) {
